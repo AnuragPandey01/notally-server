@@ -2,17 +2,18 @@ package xyz.droidev.routes.user
 
 import io.ktor.http.*
 import io.ktor.server.application.*
+import io.ktor.server.auth.*
+import io.ktor.server.auth.jwt.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import xyz.droidev.dao.user.userDao
 
 fun Route.deleteUserRoute() {
 
-    delete("/{id?}"){
+    delete {
 
         try{
-            val id = call.parameters["id"] ?: return@delete call.respond(HttpStatusCode.BadRequest)
-
+            val id = call.principal<JWTPrincipal>()!!.payload.getClaim("user_id").asString()
 
             if(userDao.deleteUser(id)){
                 call.respond(
