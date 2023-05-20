@@ -1,12 +1,11 @@
 package xyz.droidev.routes.user
 
-import com.auth0.jwt.interfaces.Payload
 import io.ktor.server.auth.*
 import io.ktor.server.routing.*
 import xyz.droidev.security.token.TokenConfig
 import xyz.droidev.security.token.TokenService
 
-fun Route.userRoutes(
+fun Route.exportUserRoutes(
     tokenConfig: TokenConfig,
     tokenService: TokenService
 ) {

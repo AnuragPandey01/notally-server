@@ -3,7 +3,7 @@ package xyz.droidev.routes.notes
 import io.ktor.server.auth.*
 import io.ktor.server.routing.*
 
-fun Route.notesRoutes(){
+fun Route.exportNotesRoutes(){
 
     route("/notes"){
         authenticate("access-jwt") {
