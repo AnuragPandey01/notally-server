@@ -18,7 +18,10 @@ fun Application.module() {
         validityInMs = 1000*60*60*24*7,
         secret = environment.config.property("jwt.secret").getString()
     )
-    DatabaseFactory.init()
+    DatabaseFactory.init(
+        driverClassName = environment.config.property("db.driverClassName").getString(),
+        jdbcUrl = environment.config.property("db.jdbcUrl").getString(),
+    )
     configureSecurity()
     install(MiddlewarePlugin)
     configureSerialization()

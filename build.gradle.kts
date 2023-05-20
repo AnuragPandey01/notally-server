@@ -3,6 +3,7 @@ val kotlin_version: String by project
 val logback_version: String by project
 val database_driver_version: String by project
 val exposedVersion : String by project
+val hikaricp_version: String by project
 
 plugins {
     kotlin("jvm") version "1.8.21"
@@ -38,4 +39,5 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-java-time:$exposedVersion")
+    implementation("com.zaxxer:HikariCP:$hikaricp_version")
 }
