@@ -9,6 +9,7 @@ import org.jetbrains.exposed.exceptions.ExposedSQLException
 import xyz.droidev.dao.user.userDao
 import xyz.droidev.model.UserDTO
 import xyz.droidev.model.UserOut
+import xyz.droidev.security.hash.SHAHashing
 import xyz.droidev.security.token.TokenClaim
 import xyz.droidev.security.token.TokenConfig
 import xyz.droidev.security.token.TokenService
@@ -21,7 +22,15 @@ fun Route.registerUserRoute(
         try{
             val userDTO = call.receive<UserDTO>()
 
-            val user =  userDao.addUser(userDTO.name, userDTO.email, userDTO.password)!!
+            val user =  userDao.addUser(
+                userDTO.name,
+                userDTO.email,
+                SHAHashing.getHashedValue(userDTO.password)
+            ) ?: return@post call.respond(
+                status = HttpStatusCode.InternalServerError,
+                mapOf("message" to "Something went wrong")
+            )
+
             val userOut =  UserOut(
                 id = user.id,
                 name = user.name,

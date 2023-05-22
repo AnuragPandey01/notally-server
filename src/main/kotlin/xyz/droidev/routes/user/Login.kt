@@ -7,6 +7,7 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import xyz.droidev.dao.user.userDao
 import xyz.droidev.model.UserOut
+import xyz.droidev.security.hash.SHAHashing
 import xyz.droidev.security.token.TokenClaim
 import xyz.droidev.security.token.TokenConfig
 import xyz.droidev.security.token.TokenService
@@ -39,7 +40,7 @@ fun Route.loginUserRoute(
                     value = user.id
                 )
             )
-            if (user.password == credentials.password) {
+            if (SHAHashing.compareHashedValues(credentials.password, user.password)) {
                 call.respond(HttpStatusCode.OK, mapOf("user" to userOut, "accessToken" to accessToken))
             } else {
                 call.respond(HttpStatusCode.Unauthorized, object {

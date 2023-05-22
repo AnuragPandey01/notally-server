@@ -6,6 +6,7 @@ import io.ktor.server.auth.jwt.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import io.ktor.util.*
 import xyz.droidev.dao.notes.notesDao
 import xyz.droidev.model.NoteDTO
 
@@ -13,6 +14,7 @@ fun Route.createNoteRoute(){
 
     post {
         try{
+
             val userId = call.principal<JWTPrincipal>()!!.payload.getClaim("user_id").asString()
 
             val userOut = notesDao.addNote(call.receive<NoteDTO>(), userId) ?: return@post call.respond(

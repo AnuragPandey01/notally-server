@@ -40,4 +40,5 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-java-time:$exposedVersion")
     implementation("com.zaxxer:HikariCP:$hikaricp_version")
+    implementation("commons-codec:commons-codec:1.15")
 }
