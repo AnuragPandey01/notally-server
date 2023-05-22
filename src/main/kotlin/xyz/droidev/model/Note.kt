@@ -19,7 +19,7 @@ object Notes: UUIDTable() {
 
     val userId = uuid("user_id").references(Users.id, onDelete = ReferenceOption.CASCADE, fkName = "fk_user_id")
     val title = varchar("title", 255)
-    val content = varchar("content", 255)
+    val content = text("content")
     val pinned = bool("pinned")
     val createdAt =  datetime("created_at").clientDefault{ LocalDateTime.now() }
     val updatedAt = datetime("updated_at").clientDefault{ LocalDateTime.now() }
