@@ -8,9 +8,9 @@ import xyz.droidev.dao.notes.notesDao
 
 fun Route.deleteNoteRoute(){
 
-    delete("/{id?}") {
+    delete {
 
-        val noteId = call.parameters["id"] ?: return@delete call.respond(
+        val noteId = call.request.queryParameters["id"] ?: return@delete call.respond(
             status = HttpStatusCode.BadRequest,
             mapOf("message" to "Invalid data")
         )

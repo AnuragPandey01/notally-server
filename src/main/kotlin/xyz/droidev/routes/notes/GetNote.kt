@@ -8,8 +8,12 @@ import xyz.droidev.dao.notes.notesDao
 
 fun Route.getNoteRoute(){
 
-    get("/{id?}") {
+    get {
 
+        val id = call.request.queryParameters["id"]
+        if(id.isNullOrEmpty()){
+            return@get
+        }
         try{
             val noteId = call.parameters["id"] ?: return@get call.respond(
                 status = HttpStatusCode.BadRequest,
