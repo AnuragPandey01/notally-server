@@ -12,12 +12,10 @@ fun Route.exportUserRoutes(
 
     route("/user") {
         registerUserRoute(tokenService, tokenConfig)
+        loginUserRoute(tokenService, tokenConfig)
 
         authenticate("access-jwt") {
-
-
             deleteUserRoute()
-            loginUserRoute(tokenService, tokenConfig)
         }
     }
 
