@@ -19,4 +19,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: Build Artifacts
-          path: src/build/outputs/notally.jar
+          path: build/libs/notally-all.jar
