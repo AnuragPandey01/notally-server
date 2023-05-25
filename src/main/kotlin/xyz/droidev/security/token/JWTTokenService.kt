@@ -7,7 +7,6 @@ import java.util.*
 class JWTTokenService: TokenService {
     override fun generateToken(tokenConfig: TokenConfig, vararg claim: TokenClaim): String {
         var token = JWT.create()
-            .withAudience(tokenConfig.audience)
             .withIssuer(tokenConfig.issuer)
             .withExpiresAt(Date(System.currentTimeMillis() + tokenConfig.validityInMs))
 

@@ -9,19 +9,16 @@ import xyz.droidev.dao.user.userDao
 
 fun Application.configureSecurity() {
 
-    val jwtAudience = this@configureSecurity.environment.config.property("jwt.audience").getString()
     authentication {
         jwt("access-jwt"){
             realm = this@configureSecurity.environment.config.property("jwt.realm").getString()
             verifier(
                 JWT.require(Algorithm.HMAC256(this@configureSecurity.environment.config.property("jwt.secret").getString()))
-                    .withAudience(jwtAudience)
                     .withIssuer(this@configureSecurity.environment.config.property("jwt.domain").getString())
                     .build()
             )
             validate { credential ->
                 if (
-                    credential.payload.audience.contains(jwtAudience) &&
                     userDao.getUser(credential.payload.getClaim("user_id").asString()) != null
                 ) {
                     JWTPrincipal(credential.payload)
