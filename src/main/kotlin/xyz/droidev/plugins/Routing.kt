@@ -12,7 +12,9 @@ fun Application.configureRouting(
     tokenService: TokenService
 ) {
     routing {
-        exportUserRoutes(tokenConfig, tokenService)
-        exportNotesRoutes()
+        route("/api/v1") {
+            exportUserRoutes(tokenConfig, tokenService)
+            exportNotesRoutes()
+        }
     }
 }

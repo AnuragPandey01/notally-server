@@ -21,12 +21,12 @@ fun Application.module() {
         driverClassName = environment.config.property("db.driverClassName").getString(),
         jdbcUrl = environment.config.property("db.jdbcUrl").getString(),
     )
+
+    configureStatusPages()
     configureSecurity()
     install(MiddlewarePlugin)
     configureSerialization()
     configureRouting(tokenConfig, tokenService = JWTTokenService())
-
-
 }
 
 
