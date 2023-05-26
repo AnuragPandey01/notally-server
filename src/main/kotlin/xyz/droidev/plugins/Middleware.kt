@@ -8,14 +8,20 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import xyz.droidev.dao.user.userDao
 
-val MiddlewarePlugin = createApplicationPlugin("MiddlewarePlugin"){
+fun Application.configureCustomPlugin() {
 
-    onCallRespond{call ->
+    val middlewarePlugin = createApplicationPlugin("MiddlewarePlugin"){
+        onCallRespond{call ->
 
-        val userId = call.principal<JWTPrincipal>()?.payload?.getClaim("user_id")?.asString() ?: return@onCallRespond
+            val userId = call.principal<JWTPrincipal>()?.payload?.getClaim("user_id")?.asString() ?: return@onCallRespond
+            CoroutineScope(Dispatchers.IO).launch {
+                userDao.updateLastActive(userId)
+            }
 
-        CoroutineScope(Dispatchers.IO).launch {
-            userDao.updateLastActive(userId)
         }
     }
+
+    install(middlewarePlugin)
+
 }
+

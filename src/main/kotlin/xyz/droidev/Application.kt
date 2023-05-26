@@ -24,7 +24,7 @@ fun Application.module() {
 
     configureStatusPages()
     configureSecurity()
-    install(MiddlewarePlugin)
+    configureCustomPlugin()
     configureSerialization()
     configureRouting(tokenConfig, tokenService = JWTTokenService())
 }
