@@ -26,10 +26,7 @@ fun Route.registerUserRoute(
                 userDTO.name,
                 userDTO.email,
                 SHAHashing.getHashedValue(userDTO.password)
-            ) ?: return@post call.respond(
-                status = HttpStatusCode.InternalServerError,
-                mapOf("message" to "Something went wrong")
-            )
+            )!!
 
             val userOut =  UserOut(
                 id = user.id,
